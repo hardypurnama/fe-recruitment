@@ -5,24 +5,26 @@ import NavbarComp from "../../component/NavbarComp";
 import AddLoker from "./AddLoker";
 import MonitoringLoker from "./MonitoringLoker";
 import MonitoringUser from "./MonitoringUser";
+import UpdateStatusUser from "./UpdateStatusUser";
 
 
 const Monitoring = (props) => {
   const [isUpdate,setIsUpdate]=useState(false)
-  const [idLoker,setIdLoker]=useState(false)
-  const [idUser,setIdUser]=useState(false)
+  const [idLoker,setIdLoker]=useState()
+  const [idKandidat,setIdKandidat]=useState()
   const Navigate = useNavigate();
   let { menu } = useParams();
 
   const handleUpdateLoker = (data) => {
-
     setIdLoker(data.id)
     setIsUpdate(true)
     Navigate("/Monitoring/AddLoker");
-
-
-    
-    
+  };
+  const handleUpdateUser = (data) => {
+    console.log(data)
+    setIdKandidat(data.id)
+    console.log(idKandidat)
+    Navigate("/Monitoring/UpdateStatusUser");
   };
 
 
@@ -46,7 +48,8 @@ const Monitoring = (props) => {
         <Col className="Col-md-4">
           {menu==="AddLoker" && <AddLoker idLoker={idLoker} isUpdate={isUpdate}/>} 
           {menu==="MonitoringLoker" && <MonitoringLoker handleUpdateLoker={handleUpdateLoker} />}
-          {menu==="MonitoringUser" && <MonitoringUser />}
+          {menu==="MonitoringUser" && <MonitoringUser handleUpdateUser={handleUpdateUser} />}
+          {menu==="UpdateStatusUser" && <UpdateStatusUser idKandidat={idKandidat} />}
         </Col>
       </Row>
     </Container>

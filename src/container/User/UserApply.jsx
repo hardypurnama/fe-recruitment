@@ -40,10 +40,10 @@ const UserApply = (props) => {
                   return (
                     <tr>
                       <td>{i + 1}</td>
-                      <td>{Post.nama_perusahaan}</td>
-                      <td>{Post.posisi}</td>
-                      <td>{Post.lokasi}</td>
-                      <td>APPLY</td>
+                      <td>{Post.Product ? Post.Product.nama_perusahaan : "-"}</td>
+                      <td>{Post.Product ? Post.Product.posisi: "-" }</td>
+                      <td>{Post.Product ? Post.Product.lokasi: "-"}</td>
+                      <td>{Post.status}</td>
                     </tr>
                   );
                 })}

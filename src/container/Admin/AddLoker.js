@@ -1,11 +1,13 @@
 import React, { useState,useEffect} from "react";
 import {  Card } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import {authHeader} from "../../Utils/Authentication";
 
 
 const AddLoker =(props)=>  {
+  const Navigate = useNavigate();
 const [loker,setLoker]=useState({
     poster: "",
     nama_perusahaan: "",
@@ -28,13 +30,14 @@ const [loker,setLoker]=useState({
   };
 
   useEffect(() => {
+     
     const getPostAPI = () => {
       axios
         .get("http://localhost:3000/products/" + props.idLoker)
 
         .then((result) => {
           setLoker(result.data);
-          console.log(result);
+          // console.log(result);
         });
     };
     if(props.isUpdate){
@@ -48,6 +51,7 @@ const [loker,setLoker]=useState({
     axios.post("http://localhost:3000/products", loker, { headers: authHeader() }).then(
       (res) => {
          handleReset();
+         Navigate("/Monitoring/MonitoringLoker");
       },
       (err) => {
         console.log("error: ".err);
@@ -58,6 +62,7 @@ const [loker,setLoker]=useState({
   const putDataToAPI = () => {
     axios.put(`http://localhost:3000/products/${loker.id}`, loker, { headers: authHeader() }).then((res) => {
         handleReset();
+        Navigate("/Monitoring/MonitoringLoker");
     });
   };
 
@@ -78,6 +83,25 @@ const [loker,setLoker]=useState({
     );
   };
 
+  const handleUpload=(e)=>{
+    const formData=new FormData();
+    const image=e.target.files[0];
+    formData.append("image", image);
+    axios.post("http://localhost:3000/products/uploads", formData, { headers: {...authHeader(),"Content-Type": "multipart/form-data" } }).then(
+      (res) => {
+        let Lokernew = { ...loker, poster:res.data.data };
+        setLoker(
+          Lokernew,
+        );
+      },
+      (err) => {
+        console.log("error: ".err);
+      }
+    );
+  
+
+  }
+
  
     return (
      
@@ -87,9 +111,13 @@ const [loker,setLoker]=useState({
               <hr></hr>
               <div className="form-add-post">
                 <label htmlFor="title">Logo Perusahaan</label>
+                {(loker.poster)&&
                 <Card>
-                  <Card.Img variant="top" src=" + " /> +
+                  <Card.Img variant="top" src={loker.poster} />
                 </Card>
+                }
+                <label htmlFor="title">Poster</label>
+                <input type="file"  placeholder="add title" onChange={handleUpload} />
                 <label htmlFor="title">Nama Perusahaan</label>
                 <input type="text" value={loker.nama_perusahaan} name="nama_perusahaan" placeholder="add title" onChange={handleFormChange} />
                 <label htmlFor="body">Posisi</label>

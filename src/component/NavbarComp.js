@@ -8,7 +8,9 @@ function NavbarComp() {
     Navigate("/Login");
   }
   function keluar() {
-    Navigate("/Login");
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    Navigate("/")
   }
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -37,13 +39,13 @@ function NavbarComp() {
               {!isUser() && 
                 <Nav.Link href="#action1">
                   <Link to="/Monitoring/AddLoker">Input Loker</Link>
-                  <Nav.Link href="#action2">Logout</Nav.Link>
+                  <Nav.Link onClick={keluar}>Logout</Nav.Link>
                 </Nav.Link>
               }
               if{isUser() && 
                 <Nav.Link href="#action1">
                   <Link to="/Users/UserProfile">Profile</Link>
-                  <Nav.Link href="#action2">Logout</Nav.Link>
+                  <Nav.Link onClick={keluar}>Logout</Nav.Link>
                 </Nav.Link>
 
               }

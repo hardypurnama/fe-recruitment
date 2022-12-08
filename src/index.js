@@ -9,11 +9,11 @@ import DetailLoker from "./container/Loker/DetailLoker";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserProfile from "./container/User/UserProfile";
 import Monitoring from "./container/Admin/Monitoring";
-import UserApply from "./container/User/UserApply";
-import UserNotification from "./container/User/UserNotification";
+
 
 import SignUp from "./container/Auth/SignUp";
 import Users from "./container/User/Users";
+import UpdateStatusUser from "./container/Admin/UpdateStatusUser";
 
 const router = createBrowserRouter([
   {

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Dropdown, ListGroup, Table } from "react-bootstrap";
+import { Button, Container, Form, Table } from "react-bootstrap";
 import axios from "axios";
 import { getUser, authHeader } from "../../Utils/Authentication";
+import { Link } from "react-router-dom";
 
 const MonitoringUser = (props) => {
-  const [kandidat, setKandidat] = useState([]);
+  const [kandidat, setKandidat] = useState({
+    id_lowongan: " ",
+    id_user: " ",
+    id_hr: " ",
+    status: " ",
+  });
 
   useEffect(() => {
     const getPostAPI = () => {
       const curUser = getUser();
-      axios.get("http://localhost:3000/kandidats/byuser/" + curUser.id, { headers: authHeader() }).then((result) => {
+      axios.get("http://localhost:3000/kandidats", { headers: authHeader() }).then((result) => {
         setKandidat(result.data);
         console.log(kandidat);
       });
@@ -17,9 +23,22 @@ const MonitoringUser = (props) => {
     getPostAPI();
   }, []);
 
+  const changeStatus = (e) => {
+    console.log(e);
+  };
   // const handleChangeStatus{
 
   // }
+  const putDataToAPI = () => {
+    axios.put(`http://localhost:3000/kandidat/`, { headers: authHeader() }).then((res) => {});
+  };
+
+  const handleChange = (event) => {
+    let Kandidatnew = { ...kandidat };
+
+    Kandidatnew[event.target.name] = event.target.value;
+    setKandidat(Kandidatnew);
+  };
 
   return (
     <Container>
@@ -32,6 +51,7 @@ const MonitoringUser = (props) => {
             <th>Posisi</th>
             <th>Penempatan</th>
             <th>Status</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -40,33 +60,14 @@ const MonitoringUser = (props) => {
               return (
                 <tr>
                   <td>{i + 1}</td>
-                  <td>{Post.title}</td>
-                  <td>{Post.nama_perusahaan}</td>
-                  <td>{Post.posisi}</td>
-                  <td>{Post.lokasi}</td>
-                  <td>
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        {Post.status}
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1" >Test</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Interview</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Reject</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Lulus</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-
-                  {/* <td colSpan={2}>
-                    <Button className="remove" onClick={() => props.remove(Post.id)}>
-                      Delete
-                    </Button>
-                    <Button className="update" onClick={() => props.update(Post)}>
-                      Update
-                    </Button>
-                  </td> */}
+                  <td>{Post.User ? Post.User.nama : "-"}</td>
+                  <td>{Post.Product ? Post.Product.nama_perusahaan : "-"}</td>
+                  <td>{Post.Product ? Post.Product.posisi : "-"}</td>
+                  <td>{Post.Product ? Post.Product.lokasi : "-"}</td>
+                  <td>{Post.status}</td>
+                  <td> <Button className="update" onClick={() => props.handleUpdateUser(Post)}>
+                    Update
+                  </Button></td>
                 </tr>
               );
             })}
