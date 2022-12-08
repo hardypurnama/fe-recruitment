@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Nav, Navbar, Button, Container } from "react-bootstrap";
-
+import { isHr,isAdmin,isUser } from "../Utils/Authentication";
 function NavbarComp() {
   const Navigate = useNavigate();
   function masuk() {
     Navigate("/Login");
   }
   function keluar() {
-    Navigate("/FormSignUp");
+    Navigate("/Login");
   }
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -21,6 +21,7 @@ function NavbarComp() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="justify-content-end flex-grow-1 pe-3 my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
+            
             {!(user && token) && (
               <>
                 <Button onClick={masuk} className="me-2" variant="outline-success">
@@ -31,14 +32,23 @@ function NavbarComp() {
                 </Button>
               </>
             )}
-            {user && (
+            {(user && token)&& (
               <>
+              {!isUser() && 
                 <Nav.Link href="#action1">
                   <Link to="/Monitoring/AddLoker">Input Loker</Link>
+                  <Nav.Link href="#action2">Logout</Nav.Link>
                 </Nav.Link>
-                <Nav.Link href="#action2">NEWS</Nav.Link>
-                <Nav.Link href="#action2">ABOUT</Nav.Link>
-                <Nav.Link href="#action2">Logout</Nav.Link>
+              }
+              if{isUser() && 
+                <Nav.Link href="#action1">
+                  <Link to="/Users/UserProfile">Profile</Link>
+                  <Nav.Link href="#action2">Logout</Nav.Link>
+                </Nav.Link>
+
+              }
+                
+                
               </>
             )}
           </Nav>

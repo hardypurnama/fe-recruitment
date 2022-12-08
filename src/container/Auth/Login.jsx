@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Container, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 function Login() {
   const [FormLogin, setFormLogin] = useState({
@@ -21,7 +22,7 @@ function Login() {
     axios.post("http://localhost:3000/users/login", FormLogin).then(
       (res) => {
         if (res.data.token) {
-          localStorage.setItem("user", JSON.stringify(res.data.username));
+          localStorage.setItem("user", JSON.stringify(jwt_decode(res.data.token))   );
           localStorage.setItem("token", JSON.stringify(res.data.token));
           return navigate("/");
         }
@@ -32,6 +33,8 @@ function Login() {
     );
   };
 
+
+  
   return (
     <Container>
       <Form onSubmit={handleSubmit}>

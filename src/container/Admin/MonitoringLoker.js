@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { Button, Table } from "react-bootstrap";
 
 import axios from "axios";
-import authHeader from "../../Utils/Authentication";
+import {authHeader} from "../../Utils/Authentication";
 
 const MonitoringLoker = (props) => {
   const [loker,setLoker]=useState(
@@ -21,7 +21,6 @@ const MonitoringLoker = (props) => {
 
       .then((result) => {
         setLoker(result.data);
-        console.log(result);
       });
   };
   useEffect(() => {

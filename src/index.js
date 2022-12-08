@@ -13,6 +13,7 @@ import UserApply from "./container/User/UserApply";
 import UserNotification from "./container/User/UserNotification";
 
 import SignUp from "./container/Auth/SignUp";
+import Users from "./container/User/Users";
 
 const router = createBrowserRouter([
   {
@@ -28,21 +29,33 @@ const router = createBrowserRouter([
     element: <DetailLoker />,
   },
   {
+    path: "/Monitoring",
+    element: <Monitoring />,
+  },
+  {
     path: "/Monitoring/:menu",
     element: <Monitoring />,
+  },
+  {
+    path: "/Users",
+    element: <Users />,
+  },
+  {
+    path: "/Users/:menu",
+    element: <Users />,
   },
   {
     path: "/UserProfile",
     element: <UserProfile />,
   },
-  {
-    path: "/UserApply",
-    element: <UserApply />,
-  },
-  {
-    path: "/UserNotification",
-    element: <UserNotification />,
-  },
+  // {
+  //   path: "/UserApply",
+  //   element: <UserApply />,
+  // },
+  // {
+  //   path: "/UserNotification",
+  //   element: <UserNotification />,
+  // },
   {
     path: "/SignUp",
     element: <SignUp />,
