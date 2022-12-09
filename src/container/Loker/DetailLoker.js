@@ -18,7 +18,7 @@ function DetailLoker() {
     
     const getPostAPI = () => {
       axios
-        .get("http://localhost:3000/products/" + id)
+        .get("https://backend-recruitment-production.up.railway.app/products/" + id)
 
         .then((result) => {
           setDetail(result.data);
@@ -30,6 +30,9 @@ function DetailLoker() {
 
   const postDataToAPI = () => {
     const curUser=getUser()
+    if(!curUser){
+      Navigate("/");
+    } else {
     const loker ={
       id_lowongan: Detail.id,
       id_user : curUser.id,
@@ -37,7 +40,7 @@ function DetailLoker() {
       status:"APPLY",   
     }
 
-    axios.post("http://localhost:3000/kandidats", loker, { headers: authHeader() }).then(
+    axios.post("https://backend-recruitment-production.up.railway.app/kandidats", loker, { headers: authHeader() }).then(
       (res) => {
         Navigate("/Users/UserApply");
       },
@@ -45,6 +48,7 @@ function DetailLoker() {
         console.log("error: ".err);
       }
     );
+    }
   };
  const handleApply =()=>{
    postDataToAPI();

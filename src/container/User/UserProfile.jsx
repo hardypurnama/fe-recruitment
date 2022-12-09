@@ -14,7 +14,7 @@ const UserProfile=(props)=> {
       const curUser=getUser()
       console.log(curUser)
       axios
-        .get("http://localhost:3000/users/"+curUser.id, { headers: authHeader() })
+        .get("https://backend-recruitment-production.up.railway.app/users/"+curUser.id, { headers: authHeader() })
   
         .then((result) => {
           result.data.tgl_lahir=result.data.tgl_lahir?
@@ -39,15 +39,20 @@ const UserProfile=(props)=> {
 
   return (
     <Container>
-      <Row>
+      <div className="form-main">
+        <div className="form-second">
+          <div className="content">
+          <h2
+                className="section-title"
+                style={{ color: "Green", backgroundColor: "" }}
+              >
+                Profil
+              </h2>
+              <hr></hr>
+          <Row>
         <Col className="col-md-10">
           <Form>
           <div>
-            <hr></hr>
-            <hr></hr>
-            <p>BIODATA</p>
-            <hr></hr>
-            <hr></hr>
             <Form.Group className="mb-3" controlId="formBasicNama">
               <Form.Label>Nama</Form.Label>
               <Form.Control type="text" placeholder="Nama Lengkap" name="nama" value={user.nama} />
@@ -77,6 +82,10 @@ const UserProfile=(props)=> {
               <Form.Label>Dokumen</Form.Label>
               <Form.Control type="gd" placeholder="dokumen" name="document" value={user.document}/>
             </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicDokumen">
+              <Form.Label>Email Verifikasi</Form.Label>
+              <Form.Control type="gd" placeholder="dokumen" name="document" value={user.verified ? 'Terverifikasi' : 'Belum Terverifikasi'}/>
+            </Form.Group>
           </div>
             <Button variant="primary" type="submit">
               Save
@@ -87,6 +96,10 @@ const UserProfile=(props)=> {
           </Form>
         </Col>
       </Row>
+          </div>
+        </div>
+      </div>
+      
 
       
     </Container>

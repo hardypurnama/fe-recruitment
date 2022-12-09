@@ -5,15 +5,18 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./container/Home/Home";
 import DetailLoker from "./container/Loker/DetailLoker";
- import Login from "./container/Auth/Login";
+import Login from "./container/Auth/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import UserProfile from "./container/User/UserProfile";
 import Monitoring from "./container/Admin/Monitoring";
 
-
 import SignUp from "./container/Auth/SignUp";
 import Users from "./container/User/Users";
-import UpdateStatusUser from "./container/Admin/UpdateStatusUser";
+import UserVerify from "./container/User/UserVerify";
+import LupaPassword from "./container/Auth/LupaPassword";
+
+
 
 const router = createBrowserRouter([
   {
@@ -60,12 +63,22 @@ const router = createBrowserRouter([
     path: "/SignUp",
     element: <SignUp />,
   },
+  {
+    path: "/LupaPassword",
+    element: <LupaPassword />
+  },
+  {
+    path: "/verifikasi/:token",
+    element: <UserVerify />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId="184618772087-abpjh1jf6p9v041shlu3i6rahv372cc2.apps.googleusercontent.com">
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 

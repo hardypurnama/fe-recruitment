@@ -11,7 +11,7 @@ const UserApply = (props) => {
     const getPostAPI = () => {
       const curUser=getUser()
       axios
-        .get("http://localhost:3000/kandidats/byuser/"+curUser.id, { headers: authHeader() })
+        .get("https://backend-recruitment-production.up.railway.app/kandidats/byuser/"+curUser.id, { headers: authHeader() })
         .then((result) => {
           setKandidat(result.data);
           console.log(kandidat)
@@ -22,7 +22,17 @@ const UserApply = (props) => {
 
   return (
     <Container>
-      <Row>
+      <div className="form-main">
+        <div className="form-second">
+          <div className="content">
+          <h2
+                className="section-title"
+                style={{ color: "Green", backgroundColor: "" }}
+              >
+                User Apply
+              </h2>
+              <hr></hr>
+          <Row>
         <Col className="col-md-10">
           <Table striped bordered hover>
             <thead className="tabelComp">
@@ -51,6 +61,10 @@ const UserApply = (props) => {
           </Table>
         </Col>
       </Row>
+          </div>
+        </div>
+      </div>
+      
     </Container>
   );
 };

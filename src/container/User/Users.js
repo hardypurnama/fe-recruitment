@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { Container, Col, Row, Nav, Card } from "react-bootstrap";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { Container, Col, Row, Nav, Card, Button } from "react-bootstrap";
 import NavbarComp from "../../component/NavbarComp";
 import UserProfile from "./UserProfile";
 import UserApply from "./UserApply";
 import UserNotification from "./UserNotification";
 
 const Users = (props) => {
-  const [isUpdate, setIsUpdate] = useState(false);
-  //   const [idUser,setIdUser]=useState(false)
-  //   const [idUser,setIdUser]=useState(false)
-  const Navigate = useNavigate();
   let { menu } = useParams();
 
   //   const handleUpdateUser = (data) => {
@@ -26,22 +22,41 @@ const Users = (props) => {
       <NavbarComp />
       <Container>
         <Row>
-          <Col className="col-md-2">
-            <Nav defaultActiveKey="/home" className="flex-column">
-              <Card>
-                <Card.Img variant="top" src=" + " />
-              </Card>
-              <Link to="/Users/UserProfile">User Profile</Link>
-              <Link Link to="/Users/UserApply">
-                User Apply
-              </Link>
-              <Link Link to="/Users/UserNotification">
-                User Notification
-              </Link>
-            </Nav>
+          <Col sm={3}>
+            <div className="side">
+              <Nav defaultActiveKey="/home" className="flex-column">
+                <Card>
+                  <Card.Img variant="top" src=" + " />
+                </Card>
+                <Button
+                  className="opsi d-grid gap-2 mt-3"
+                  variant="outline-success"
+                >
+                  <Link className="mon" to="/Users/UserProfile">
+                    User Profile
+                  </Link>
+                </Button>
+                <Button
+                  className="opsi d-grid gap-2 mt-3"
+                  variant="outline-success"
+                >
+                  <Link className="mon" Link to="/Users/UserApply">
+                    User Apply
+                  </Link>
+                </Button>
+                <Button
+                  className="opsi d-grid gap-2 mt-3"
+                  variant="outline-success"
+                >
+                  <Link className="mon" Link to="/Users/UserNotification">
+                    User Notification
+                  </Link>
+                </Button>
+              </Nav>
+            </div>
           </Col>
 
-          <Col className="Col-md-4">
+          <Col sm={9}>
             {menu === "UserProfile" && <UserProfile />}
             {menu === "UserApply" && <UserApply />}
             {menu === "UserNotification" && <UserNotification />}

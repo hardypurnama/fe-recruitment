@@ -35,7 +35,7 @@ const AddUser = (props) => {
   useEffect(() => {
     const getPostAPI = () => {
       axios
-        .get("http://localhost:3000/users/register" + props.idLoker)
+        .get("https://backend-recruitment-production.up.railway.app/users/register" + props.idLoker)
 
         .then((result) => {
           setUser(result.data);
@@ -48,7 +48,7 @@ const AddUser = (props) => {
   }, []);
 
   const postDataToAPI = () => {
-    axios.post("http://localhost:3000/users/register", user, { headers: authHeader() }).then(
+    axios.post("https://backend-recruitment-production.up.railway.app/users/register", user, { headers: authHeader() }).then(
       (res) => {
         handleReset();
       },
@@ -59,7 +59,7 @@ const AddUser = (props) => {
   };
 
   const putDataToAPI = () => {
-    axios.put(`http://localhost:3000/users/register/${user.id}`, user, { headers: authHeader() }).then((res) => {
+    axios.put(`https://backend-recruitment-production.up.railway.app/users/register/${user.id}`, user, { headers: authHeader() }).then((res) => {
       handleReset();
     });
   };

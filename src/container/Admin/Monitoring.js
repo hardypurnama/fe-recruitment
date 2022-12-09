@@ -1,60 +1,77 @@
-import React,{useState} from "react";
-import { Link, useParams,useNavigate } from "react-router-dom";
-import {  Container,  Col, Row, Nav, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { Container, Col, Row, Nav, Card, Button } from "react-bootstrap";
 import NavbarComp from "../../component/NavbarComp";
 import AddLoker from "./AddLoker";
 import MonitoringLoker from "./MonitoringLoker";
 import MonitoringUser from "./MonitoringUser";
 import UpdateStatusUser from "./UpdateStatusUser";
-
+import "./Admin.css";
 
 const Monitoring = (props) => {
-  const [isUpdate,setIsUpdate]=useState(false)
-  const [idLoker,setIdLoker]=useState()
-  const [idKandidat,setIdKandidat]=useState()
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [idLoker, setIdLoker] = useState();
+  const [idKandidat, setIdKandidat] = useState();
   const Navigate = useNavigate();
   let { menu } = useParams();
 
   const handleUpdateLoker = (data) => {
-    setIdLoker(data.id)
-    setIsUpdate(true)
+    setIdLoker(data.id);
+    setIsUpdate(true);
     Navigate("/Monitoring/AddLoker");
   };
   const handleUpdateUser = (data) => {
-    console.log(data)
-    setIdKandidat(data.id)
-    console.log(idKandidat)
+    console.log(data);
+    setIdKandidat(data.id);
+    console.log(idKandidat);
     Navigate("/Monitoring/UpdateStatusUser");
   };
 
-
   return (
     <>
-    <NavbarComp />
-    <Container>
-      <Row>
-        <Col className="col-md-2">
-          <Nav defaultActiveKey="/home" className="flex-column">
-            <Card>
-              <Card.Img variant="top" src=" + " />
-            </Card>
-            <Link to="/Monitoring/AddLoker">Input Loker</Link>
-            <Link Link to="/Monitoring/MonitoringLoker">Monitoring Loker</Link>
-            <Link Link to="/Monitoring/MonitoringUser">Monitoring User</Link>
-         
-          </Nav>
-        </Col>
+      <NavbarComp />
+      <Container>
+        <Row>
+          <Col sm={3}>
+            <div className="side">
+              <Nav defaultActiveKey="/home" className="flex-column">
+                <Card>
+                  <Card.Img variant="top" src=" + " />
+                </Card>
+                <Button className="opsi d-grid gap-2 mt-3" variant="outline-success">
+                  <Link className="mon" to="/Monitoring/AddLoker">Input Loker</Link>
+                </Button>
+                <Button className="opsi d-grid gap-2 mt-3" variant="outline-success">
+                  <Link className="mon" Link to="/Monitoring/MonitoringUser">
+                    Monitoring User
+                  </Link>
+                </Button>
+                <Button className="opsi d-grid gap-2 mt-3" variant="outline-success">
+                  <Link className="mon" Link to="/Monitoring/MonitoringLoker">
+                    Monitoring Loker
+                  </Link>
+                </Button>
+              </Nav>
+            </div>
+          </Col>
 
-        <Col className="Col-md-4">
-          {menu==="AddLoker" && <AddLoker idLoker={idLoker} isUpdate={isUpdate}/>} 
-          {menu==="MonitoringLoker" && <MonitoringLoker handleUpdateLoker={handleUpdateLoker} />}
-          {menu==="MonitoringUser" && <MonitoringUser handleUpdateUser={handleUpdateUser} />}
-          {menu==="UpdateStatusUser" && <UpdateStatusUser idKandidat={idKandidat} />}
-        </Col>
-      </Row>
-    </Container>
+          <Col sm={9}>
+            {menu === "AddLoker" && (
+              <AddLoker idLoker={idLoker} isUpdate={isUpdate} />
+            )}
+            {menu === "MonitoringLoker" && (
+              <MonitoringLoker handleUpdateLoker={handleUpdateLoker} />
+            )}
+            {menu === "MonitoringUser" && (
+              <MonitoringUser handleUpdateUser={handleUpdateUser} />
+            )}
+            {menu === "UpdateStatusUser" && (
+              <UpdateStatusUser idKandidat={idKandidat} />
+            )}
+          </Col>
+        </Row>
+      </Container>
     </>
-    
   );
 };
 

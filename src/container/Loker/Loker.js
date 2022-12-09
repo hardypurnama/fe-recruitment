@@ -4,29 +4,42 @@ import axios from "axios";
 
 // import { Button,Card,Container } from "react-bootstrap";
 import SubmitLoker from "../../component/SubmitLoker";
-
+import JumboComp from "../../component/JumboComp";
 // import './Loker.css'
 
 
 
 const Loker =()=> {
-    const [loker,setLoker]=useState(
-        []
-        )
+    const [loker,setLoker]=useState([])
+    const [lokerDef, setLokerDef] = useState([])
     useEffect(() => {
         const getPostAPI = () => {
           axios
-            .get("http://localhost:3000/products/")
-    
+            .get("https://backend-recruitment-production.up.railway.app/products/")
             .then((result) => {
               setLoker(result.data);
+              setLokerDef(result.data);
               console.log(result);
             });
         };
         getPostAPI();
       }, []);
+
+    const handleSearch = (text) => {
+      if(!text && lokerDef){
+        setLoker(lokerDef)
+        return;
+      }else{
+        const search = loker.filter((el) => {
+          return el.posisi.toLowerCase().includes(text.toLowerCase()) || el.lokasi.toLowerCase().includes(text.toLowerCase())
+        })
+        setLoker(search)
+      }
+    }
     return (
-      <Container>
+      <>
+        <JumboComp search={handleSearch} />
+        <Container>
         <Row>
           {loker &&
             loker.map((Post) => {
@@ -38,6 +51,7 @@ const Loker =()=> {
             })}
         </Row>
       </Container>
+      </>
     );
   }
 
