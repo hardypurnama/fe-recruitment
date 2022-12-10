@@ -19,8 +19,8 @@ const SubmitLoker =(props) =>{
     // </div>
     <Container>
         
-        <Card >
-            <Card.Img variant="top" src={props.data.poster} />
+        <Card sx={{ maxWidth: 345 }}>
+            <Card.Img className="image is-128x128" variant="top" src={props.data.poster} />
         <Card.Body>
             <Card.Title className="title">{props.data.posisi}</Card.Title>
             <Card.Text className="desc">{props.data.lokasi}</Card.Text>

@@ -13,6 +13,7 @@ import { isUser, getUser, authHeader } from "../Utils/Authentication";
 import axios from "axios";
 import "./NavbarComp.css";
 import bell from "../img/bell.svg";
+import logo from "../img/logo.jpg";
 function NavbarComp() {
   const Navigate = useNavigate();
   function masuk() {
@@ -68,9 +69,13 @@ function NavbarComp() {
   };
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="#">Inalah LOKER</Navbar.Brand>
+        <Navbar.Brand href="#">
+        <img
+              src={logo} 
+            />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -83,11 +88,11 @@ function NavbarComp() {
                 <Button
                   onClick={masuk}
                   className="me-2"
-                  variant="outline-success"
+                  variant="primary"
                 >
                   Login
                 </Button>
-                <Button onClick={signup} variant="outline-success">
+                <Button onClick={signup} variant="outline-primary">
                   Sign Up
                 </Button>
               </>

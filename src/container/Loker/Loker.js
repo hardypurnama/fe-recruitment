@@ -40,6 +40,8 @@ const Loker =()=> {
       <>
         <JumboComp search={handleSearch} />
         <Container>
+          <h2>Rekomendasi Lowongan</h2>
+          <p>Temukan pekerjaan Impianmu</p>
         <Row>
           {loker &&
             loker.map((Post) => {
